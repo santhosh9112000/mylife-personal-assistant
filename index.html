@@ -117,7 +117,7 @@ if ("serviceWorker" in navigator) {
     document.getElementById('appLock').classList.add('show'); updateDots();
   }
   window.pinKey=function(k){
-    if(pinBuffer.length>=6)return;
+    if(pinBuffer.length>=4)return;
     pinBuffer+=k; updateDots();
     if(pinBuffer.length>=4 && pinMode==='unlock') setTimeout(checkPin,120);
     else if(pinBuffer.length===6 && (pinMode==='setup'||pinMode==='confirm')) setTimeout(checkPin,120);
