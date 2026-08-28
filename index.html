@@ -106,7 +106,7 @@ if ("serviceWorker" in navigator) {
   const LOCKKEY='mylife_pin_v1';
   let pinBuffer='', pinMode='unlock', pendingPin='';
   function hasPin(){return !!localStorage.getItem(LOCKKEY)}
-  function updateDots(){document.getElementById('pinDots').textContent=(pinBuffer+'○○○○').slice(0,Math.max(6,pinBuffer.length)).split('').map((x,i)=>i<pinBuffer.length?'●':'○').join(' ')}
+  function updateDots(){document.getElementById('pinDots').textContent=(pinBuffer+'○○○○').slice(0,Math.max(4,pinBuffer.length)).split('').map((x,i)=>i<pinBuffer.length?'●':'○').join(' ')}
   function openLock(mode){
     pinMode=mode; pinBuffer='';
     const title=document.getElementById('lockTitle'), sub=document.getElementById('lockSubtitle'), hint=document.getElementById('lockHint');
@@ -166,14 +166,14 @@ if ("serviceWorker" in navigator) {
   const oldPinKey=window.pinKey;
   window.pinKey=function(k){
     if(pinMode!=='changeOld' && pinMode!=='newPin' && pinMode!=='newConfirm') return oldPinKey(k);
-    if(pinBuffer.length>=6)return;
+    if(pinBuffer.length>=4)return;
     pinBuffer+=k;updateDots();
     if(pinBuffer.length>=4 && pinMode==='changeOld')setTimeout(function(){
       if(pinBuffer===localStorage.getItem(LOCKKEY)){pinMode='newPin';pinBuffer='';document.getElementById('lockSubtitle').textContent='Choose your new 4–6 digit PIN';updateDots()}
       else{document.getElementById('lockError').textContent='Incorrect current PIN.';pinBuffer='';updateDots()}
     },120);
-    else if(pinBuffer.length===6 && pinMode==='newPin')setTimeout(function(){pendingPin=pinBuffer;pinMode='newConfirm';pinBuffer='';document.getElementById('lockSubtitle').textContent='Enter the new PIN again';updateDots()},120);
-    else if(pinBuffer.length===6 && pinMode==='newConfirm')setTimeout(function(){
+    else if(pinBuffer.length===4 && pinMode==='newPin')setTimeout(function(){pendingPin=pinBuffer;pinMode='newConfirm';pinBuffer='';document.getElementById('lockSubtitle').textContent='Enter the new PIN again';updateDots()},120);
+    else if(pinBuffer.length===4 && pinMode==='newConfirm')setTimeout(function(){
       if(pinBuffer===pendingPin){localStorage.setItem(LOCKKEY,pendingPin);document.getElementById('appLock').classList.remove('show');pinBuffer='';pendingPin='';}
       else{document.getElementById('lockError').textContent='PINs do not match.';pinBuffer='';updateDots()}
     },120);
