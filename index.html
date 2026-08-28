@@ -106,7 +106,7 @@ if ("serviceWorker" in navigator) {
   const LOCKKEY='mylife_pin_v1';
   let pinBuffer='', pinMode='unlock', pendingPin='';
   function hasPin(){return !!localStorage.getItem(LOCKKEY)}
-  function updateDots(){document.getElementById('pinDots').textContent=(pinBuffer+'○○○○○○').slice(0,Math.max(6,pinBuffer.length)).split('').map((x,i)=>i<pinBuffer.length?'●':'○').join(' ')}
+  function updateDots(){document.getElementById('pinDots').textContent=(pinBuffer+'○○○○').slice(0,Math.max(6,pinBuffer.length)).split('').map((x,i)=>i<pinBuffer.length?'●':'○').join(' ')}
   function openLock(mode){
     pinMode=mode; pinBuffer='';
     const title=document.getElementById('lockTitle'), sub=document.getElementById('lockSubtitle'), hint=document.getElementById('lockHint');
